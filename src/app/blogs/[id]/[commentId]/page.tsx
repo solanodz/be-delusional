@@ -3,7 +3,7 @@ import { montserrat } from "@/ui/fonts";
 
 interface CommentDetailProps {
   params: {
-    id: string;
+    id: any;
   };
 }
 

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 const Navbar = () => {
   return (
-    <div className="bg-white bg-opacity-75 drop-shadow-md border-b border-gray-300 sticky top-0 right-0 left-0 mb-6 backdrop-blur-xl z-50">
+    <div className="bg-white bg-opacity-75 drop-shadow-md border-b border-gray-300 sticky top-0 right-0 left-0 mb backdrop-blur-xl z-50">
       <MaxWidthWrapper>
         <nav className=" p-4 flex justify-center gap-6  font-semibold text-zinc-800 w-fit mx-auto">
           <Link className=" hover:scale-110 duration-200" href="/blogs">
