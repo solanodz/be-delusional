@@ -1,9 +1,17 @@
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import AddBlogForm from "@/components/forms/AddBlogForm";
 import { montserrat } from "@/ui/fonts";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 import React from "react";
 
-const page = () => {
+const page = async () => {
+  const session = await getServerSession(authOptions);
+
+  if (session?.user?.role !== "ADMIN") {
+    redirect("/");
+  }
   return (
     <MaxWidthWrapper>
       <h2

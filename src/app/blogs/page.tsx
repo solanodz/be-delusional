@@ -6,12 +6,22 @@ import { fetchBlogs } from "../../../actions/actions";
 import BlogItem from "@/components/BlogItem";
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
 import Search from "@/components/Search";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]/route";
+import { redirect } from "next/navigation";
 
 const prisma = new PrismaClient();
 
 const Blog = async ({ searchParams }: any) => {
-  console.log("blogs", searchParams?.query);
+  const session = await getServerSession(authOptions);
+
+  if (!session) {
+    redirect("/auth/login");
+  }
+  // console.log("blogs", searchParams?.query);
   const query = searchParams?.query;
+
+  // home blogs listing page
 
   const blogs = await prisma.blog.findMany({
     where: query
@@ -21,7 +31,7 @@ const Blog = async ({ searchParams }: any) => {
             { category: { contains: query } },
           ],
         }
-      : {}, // if no query return all blogs
+      : {}, // fetch all the data blogs
   });
 
   return (
@@ -36,7 +46,7 @@ const Blog = async ({ searchParams }: any) => {
       </div>
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 grid-cols-1 gap-4">
         {blogs?.length > 0 &&
-          blogs?.map((blog) => {
+          blogs.map((blog) => {
             return <BlogItem key={blog.id} blog={blog} />;
           })}
       </div>

@@ -15,6 +15,9 @@ import Image from "next/image";
 import CommentAddForm from "@/components/forms/CommentAddForm";
 import CommentListings from "@/components/CommentListings";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { getServerSession } from "next-auth";
+import { redirect } from "next/navigation";
 
 interface BlogDetailProps {
   params: {
@@ -24,9 +27,14 @@ interface BlogDetailProps {
 
 const BlogDetail = async ({ params }: BlogDetailProps) => {
   const id = params?.id;
+  const session = await getServerSession(authOptions);
 
   const blog = await fetchSingleBlog(id);
   console.log(blog);
+
+  if (!session) {
+    redirect("/auth/login");
+  }
 
   return (
     <MaxWidthWrapper className="py-6">
@@ -83,7 +91,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             </Button>
           </div>
         </section>
-        <aside className="bg-white  p-4 border border-gray-300 rounded-lg min-w-[320px] flex flex-col no-wrap">
+        <aside className="bg-white  p-4 border border-gray-300 rounded-lg sm:min-w-[340px] flex flex-col no-wrap">
           <div className="">
             <CommentAddForm blogId={id} />
           </div>
