@@ -37,9 +37,9 @@ const Blog = async ({ searchParams }: any) => {
   return (
     <MaxWidthWrapper>
       <h2
-        className={`${montserrat.className} font-bold text-4xl text-center flex justify-center sm:text-5xl tracking-tighter my-12 text-black`}
+        className={`${montserrat.className} font-bold text-4xl text-center flex justify-center sm:text-5xl tracking-tighter my-12 text-white`}
       >
-        All Blogs
+        All Articles
       </h2>
       <div className="my-5">
         <Search />

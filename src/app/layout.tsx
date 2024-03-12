@@ -21,7 +21,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Providers>
-          <div className="min-h-[50rem] w-full dark:bg-black bg-white dark:bg-grid-white/[0.1] bg-grid-black/[0.1] ">
+          <div className="min-h-[50rem] w-full dark bg-black dark:bg-white bg-grid-white/[0.1] dark:bg-grid-black/[0.1] ">
             <Navbar />
             {children}
           </div>

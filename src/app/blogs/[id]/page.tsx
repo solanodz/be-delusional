@@ -49,11 +49,11 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
         <p>Back to blogs</p>
       </Link>
       <div className="flex flex-col sm:flex-row gap-4">
-        <section className="bg-white p-4 border border-gray-300 rounded-lg">
+        <section className="bg-zinc-900 p-4 border border-zinc-700 rounded-lg">
           <div className="">
             <div className="flex flex-col items-center my-1">
               <h2
-                className={`${montserrat.className} max-w-3xl text-center my- font-bold text-4xl sm:text-5xl tracking-tighter text-black`}
+                className={`${montserrat.className} max-w-3xl text-center my- font-bold text-4xl sm:text-5xl tracking-tighter text-white`}
               >
                 {blog?.title}
               </h2>
@@ -70,8 +70,8 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             ) : null}
           </div>
 
-          <div className="my-6 bg-white">
-            <p className="sm:text-md text-zinc-800 text-sm font-medium">
+          <div className="my-6 bg-zinc-900">
+            <p className="sm:text-md text-white text-sm font-medium">
               {blog?.description}
             </p>
           </div>
@@ -91,7 +91,7 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
             </Button>
           </div>
         </section>
-        <aside className="bg-white  p-4 border border-gray-300 rounded-lg sm:min-w-[340px] flex flex-col no-wrap">
+        <aside className="bg-zinc-900   p-4 border border-zinc-700 rounded-lg sm:min-w-[340px] flex flex-col no-wrap">
           <div className="">
             <CommentAddForm blogId={id} />
           </div>

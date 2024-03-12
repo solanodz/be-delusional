@@ -34,49 +34,61 @@ export const addBlog = async (formData: any) => {
     throw new Error("Title is required");
   }
 
-  // session to get the current logged in user info
   const session = await getServerSession(authOptions);
 
-  // push the data into the DB
-  const new_blog = await prisma.blog.create({
-    data: {
-      imageUrl: imageUrl ? imageUrl : null,
-      title,
-      category,
-      description,
-      authorId: session?.user?.id,
-    },
-  });
+  // Only admins and "creators" can create posts
+  if (
+    session?.user?.role === "ADMIN" ||
+    session?.user?.permissions?.includes("CREATOR")
+  ) {
+    // push the data into the DB
+    const new_blog = await prisma.blog.create({
+      data: {
+        imageUrl: imageUrl ? imageUrl : null,
+        title,
+        category,
+        description,
+        authorId: session?.user?.id,
+      },
+    });
 
-  revalidatePath("/blogs/add-blog");
-  redirect("/blogs");
+    revalidatePath("/blogs/add-blog");
+    redirect("/blogs");
+  }
 };
 
 export const updateBlog = async (id: string, formData: any) => {
-  const session = await getServerSession(authOptions);
-
   // collect info from form using formData
   const imageUrl = formData.get("imageUrl");
   const title = formData.get("title");
   const category = formData.get("category");
   const description = formData.get("description");
 
-  // push the data into the DB
-  const updated_blog = await prisma.blog.update({
-    where: {
-      id: id,
-    },
-    data: {
-      imageUrl: imageUrl ? imageUrl : null,
-      title,
-      category,
-      description,
-      authorId: session?.user?.name ?? session?.user?.id,
-    },
-  });
+  // session
+  const session = await getServerSession(authOptions);
 
-  revalidatePath(`/blogs/update-blog/${id}`);
-  redirect("/blogs");
+  // only admin can edit blogs
+  if (
+    session?.user?.role === "ADMIN" ||
+    session?.user?.permissions?.includes("EDITOR")
+  ) {
+    // push the data into the DB
+    const updated_blog = await prisma.blog.update({
+      where: {
+        id: id,
+      },
+      data: {
+        imageUrl: imageUrl ? imageUrl : null,
+        title,
+        category,
+        description,
+        authorId: session?.user?.name ?? session?.user?.id,
+      },
+    });
+
+    revalidatePath(`/blogs/update-blog/${id}`);
+    redirect("/blogs");
+  }
 };
 
 // delete blog
@@ -140,5 +152,40 @@ export const deleteComment = async (commentId: any, blogId: any) => {
     revalidatePath(`/blogs/${blogId}`);
   } else {
     throw new Error("You are not authorized to delete this comment");
+  }
+};
+
+// fetch users
+
+export const fetchUsers = async (blogId: string) => {
+  const users = await prisma.user.findMany({
+    take: 10,
+  });
+  return users;
+};
+
+// assign user to a particular role from admin dashboard
+export const assignPermission = async (userId: string, formData: any) => {
+  const session = await getServerSession(authOptions);
+
+  // collect info from form using formData
+  const permission_name = formData.get("permission_name");
+
+  // only admin can edit blogs
+  if (session?.user?.role === "ADMIN") {
+    // assign permission to user by ADMIN
+    const assigned_user = await prisma.user.update({
+      where: {
+        id: userId,
+      },
+      data: {
+        permissions: {
+          push: [permission_name],
+        },
+      },
+    });
+
+    revalidatePath(`/admin/dashboard`);
+    redirect(`/admin/dashboard`);
   }
 };

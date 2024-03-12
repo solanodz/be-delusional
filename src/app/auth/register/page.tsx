@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { montserrat } from "@/ui/fonts";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
@@ -64,14 +65,14 @@ const RegisterPage = () => {
   };
 
   return (
-    <MaxWidthWrapper className="bg-white p-6 border border-gray-300 rounded-lg max-w-2xl justify-center mt-12 flex  flex-col gap-3 drop-shadow-md">
+    <MaxWidthWrapper className="bg-zinc-900 p-6 border border-gray-700 rounded-lg max-w-2xl justify-center mt-12 flex text-white flex-col gap-3 drop-shadow-md">
       <h2
-        className={`${montserrat.className} font-bold text-4xl text-center flex justify-center sm:text-5xl tracking-tighter my-6 text-black`}
+        className={`${montserrat.className} font-bold text-4xl text-center flex justify-center sm:text-5xl tracking-tighter my-6 `}
       >
         Register
       </h2>
 
-      <form ref={ref} onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <form ref={ref} onSubmit={handleSubmit} className="flex flex-col gap-6">
         <div>
           <Label htmlFor="username">Username</Label>
           <Input
@@ -110,6 +111,15 @@ const RegisterPage = () => {
         </div>
         {error && <p className="text-red-500">{error}</p>}
         <Button type="submit">Register</Button>
+        <p className="text-center text-sm">
+          You already have an account?{" "}
+          <Link
+            href={"/auth/login"}
+            className="text-zinc-400 hover:font-medium hover:bg-zinc-800 duration-200"
+          >
+            Click here.
+          </Link>
+        </p>
       </form>
     </MaxWidthWrapper>
   );

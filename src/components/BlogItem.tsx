@@ -11,7 +11,7 @@ const BlogItem: React.FC<BlogItemProps> = ({ blog }) => {
   return (
     <Link
       href={`/blogs/${id}`}
-      className="bg-white p-3 drop-shadow-md border border-gray-300 rounded-xl"
+      className="bg-zinc-900 p-3 drop-shadow-md border border-zinc-700 text-white rounded-xl"
     >
       <div>
         <img

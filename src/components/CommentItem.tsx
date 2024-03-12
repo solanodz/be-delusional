@@ -40,7 +40,7 @@ const CommentItem = ({ comment }: any) => {
             <DialogTrigger>
               <FaTrashCan className="h-6 cursor-pointer hover:text-red-600 duration-200" />
             </DialogTrigger>
-            <DialogContent>
+            <DialogContent className="dark text-white">
               <DialogHeader>
                 <DialogTitle>
                   Are you sure you want to delete this comment?

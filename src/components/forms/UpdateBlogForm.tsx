@@ -16,7 +16,7 @@ const UpdateBlogForm = ({ blog }: any) => {
     ref?.current?.reset();
   };
   return (
-    <div className="max-w-3xl grid mx-auto p-6 bg-white border border-gray-300 rounded-xl gap-2">
+    <div className="bg-zinc-900 border border-zinc-700 text-white max-w-3xl grid mx-auto p-6  rounded-xl gap-2">
       <form ref={ref} action={handleUpdateBlog} className="grid gap-2">
         <div>
           <Label htmlFor="image-url">Upload image URL</Label>

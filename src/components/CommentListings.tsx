@@ -10,7 +10,9 @@ const CommentListings = async ({ blogId }: any) => {
   return (
     <div className="">
       <div className="flex flex-row  my-4">
-        <h3 className="text-xl font-semibold ">Comments ({comments.length})</h3>
+        <h3 className="text-xl font-semibold text-white">
+          Comments ({comments.length})
+        </h3>
       </div>
       <div>
         {comments?.length > 0 ? (
@@ -18,7 +20,7 @@ const CommentListings = async ({ blogId }: any) => {
             return <CommentItem key={comment.id} comment={comment} />;
           })
         ) : (
-          <p>No comments yet</p>
+          <p className="text-muted-foreground text-sm">No comments yet</p>
         )}
       </div>
     </div>

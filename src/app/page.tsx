@@ -19,17 +19,14 @@ export default async function Home() {
   }
   return (
     <div>
-      <p>Logged in as {session.user?.email}</p>
-      <p>{session.user?.role}</p>
-
       <div className=" text-left max-w-[1300px] mx-6 flex gap-3 my-auto justify-center flex-col w-fit">
         <div className="flex flex-col sm:flex-row items-end">
           <TextGenerateEffect
-            className={`${montserrat.className} text-zinc-900 drop-shadow-lg font-bold text-6xl tracking-tighter sm:text-9xl `}
+            className={`${montserrat.className} text-white drop-shadow-lg font-bold text-5xl sm:text-9xl `}
             words="EVERY BIG DREAM SEEMS LIKE A DELUSION UNTIL IT BECOMES A REALITY..."
           />
           <div>
-            <IoArrowDownSharp className="text-8xl sm:text-7xl text-center mx-auto animate-bounce my-6" />
+            <IoArrowDownSharp className="text-8xl text-white sm:text-7xl text-center mx-auto animate-bounce my-6" />
           </div>
         </div>
         {/* <div className="flex flex-row gap-3 justify-center my-3">
@@ -48,7 +45,7 @@ export default async function Home() {
         </Link>
       </div> */}
       </div>
-      <div className="hidden md:flex justify-center">
+      <div className="hidden md:flex justify-center p-6 mt-12 bg-opacity-50">
         <InfiniteMovingCardsDemo />
       </div>
     </div>
