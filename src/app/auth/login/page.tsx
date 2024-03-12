@@ -100,7 +100,7 @@ const LoginPage = () => {
         {error && <p className="text-red-500">{error}</p>}
         <Button type="submit">Login</Button>
         <p className="text-center text-sm">
-          You don't have an account?{" "}
+          You don&apos;t have an account?{" "}
           <Link
             href={"/auth/register"}
             className="text-zinc-400 hover:font-medium hover:bg-zinc-800 duration-200"
