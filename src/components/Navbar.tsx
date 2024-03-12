@@ -16,6 +16,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "./ui/badge";
+import Image from "next/image";
 
 const Navbar = () => {
   const session = useSession();
@@ -26,7 +27,13 @@ const Navbar = () => {
         <nav className=" min-h-16 flex justify-between gap-6 font-medium text-white  items-center">
           <div>
             <Link className=" hover:scale-110 duration-200" href="/">
-              LOGO
+              <Image
+                src="/sz-blanco.png"
+                alt="Logo SZ"
+                width={50}
+                height={50}
+                className="p-1"
+              />
             </Link>
           </div>
 
