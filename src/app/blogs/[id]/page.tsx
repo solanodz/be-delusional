@@ -27,7 +27,8 @@ interface BlogDetailProps {
 
 const BlogDetail = async ({ params }: BlogDetailProps) => {
   const id = params?.id;
-  const session = await getServerSession(authOptions);
+  const session = getServerSession(authOptions);
+  console.log(session);
 
   const blog = await fetchSingleBlog(id);
   console.log(blog);
@@ -51,9 +52,9 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
       <div className="flex flex-col sm:flex-row gap-4">
         <section className="bg-zinc-900 p-4 border border-zinc-700 rounded-lg">
           <div className="">
-            <div className="flex flex-col items-center my-1">
+            <div className="flex flex-col items-center my-4">
               <h2
-                className={`${montserrat.className} max-w-3xl text-center my- font-bold text-4xl sm:text-5xl tracking-tighter text-white`}
+                className={`${montserrat.className} max-w-3xl text-center font-bold text-4xl sm:text-5xl tracking-tighter text-white`}
               >
                 {blog?.title}
               </h2>
@@ -65,31 +66,36 @@ const BlogDetail = async ({ params }: BlogDetailProps) => {
                 alt={blog?.title}
                 width={500}
                 height={500}
+                quality={100}
                 className="w-full h-72 sm:h-[500px] md:h-[450px] object-cover mb-4 rounded-md"
               />
             ) : null}
           </div>
 
           <div className="my-6 bg-zinc-900">
-            <p className="sm:text-md text-white text-sm font-medium">
+            <p className="sm:text-md text-white text-lg font-medium">
               {blog?.description}
             </p>
           </div>
-          <div className="flex gap-3">
-            <Link
-              href={`/blogs/update-blog/${id}`}
-              className={`${buttonVariants({ variant: "default" })} gap-2`}
-            >
-              <FaPencil />
-              <p>edit</p>
-            </Link>
-            <Button
-              className={`${buttonVariants({ variant: "destructive" })} gap-2`}
-            >
-              <FaTrashCan />
-              <p>delete</p>
-            </Button>
-          </div>
+          {session?.data?.user?.id === blog?.userId && (
+            <div className="flex gap-3">
+              <Link
+                href={`/blogs/update-blog/${id}`}
+                className={`${buttonVariants({ variant: "default" })} gap-2`}
+              >
+                <FaPencil />
+                <p>edit</p>
+              </Link>
+              {/* <Button
+                className={`${buttonVariants({
+                  variant: "destructive",
+                })} gap-2`}
+              >
+                <FaTrashCan />
+                <p>delete</p>
+              </Button> */}
+            </div>
+          )}
         </section>
         <aside className="bg-zinc-900   p-4 border border-zinc-700 rounded-lg sm:min-w-[340px] flex flex-col no-wrap">
           <div className="">
